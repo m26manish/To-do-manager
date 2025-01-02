@@ -6,15 +6,21 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 const EditTaskPage = () => {
   const { id } = useParams();
+
+  // Initialize dispatch and navigate functions from react-redux and react-router-dom
+ 
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  //Find the task in the Redux store that matches the ID from the URL
   const task = useSelector((state) =>
     state.tasks.tasks.find((task) => task.id === parseInt(id))
   );
-
+  // State to manage the title and description of the task
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
+  // useEffect to set the title and description when the task is loaded
   useEffect(() => {
     if (task) {
       setTitle(task.title);
@@ -24,6 +30,7 @@ const EditTaskPage = () => {
     }
   }, [task, dispatch]);
 
+  // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     const updatedTask = {
@@ -65,6 +72,7 @@ const EditTaskPage = () => {
                 type="checkbox"
                 checked={task.completed}
                 onChange={(e) => {
+                        // Update the task's completed status in the Redux store
                   const updatedTask = { ...task, completed: e.target.checked };
                   dispatch(updateTask(updatedTask));
                 }}
@@ -81,6 +89,7 @@ const EditTaskPage = () => {
           </button>
         </form>
       ) : (
+         // If the task is not found, display a loading message
         <p className="text-center text-gray-600">Loading...</p>
       )}
     </div>
