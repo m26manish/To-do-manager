@@ -14,7 +14,7 @@ function App() {
           To-Do List
         </Link>
         <Link to="/add" className="bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-100">
-          Add Task
+          Add Task to
         </Link>
       </div>
     </nav>
